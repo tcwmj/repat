@@ -103,7 +103,7 @@ public class ECRImportExport extends FeedTest {
 		String value1 = df.format(df.parse(returnpage.getCellValue(title))
 				.intValue() + df.parse(value).intValue())
 				+ " ";
-		returnpage.importAdjustments(excelImportPath1, true);
+		returnpage.importAdjustments(excelImportPath1, 0, true);
 		returnpage.assertCellValue(title, value1);
 		returnpage.viewAdjustmentLog();
 		returnpage.assertAdjustmentLog(logs);
@@ -111,7 +111,7 @@ public class ECRImportExport extends FeedTest {
 		String value2 = df.format(df.parse(value1).intValue()
 				+ df.parse(value).intValue())
 				+ " ";
-		returnpage.importAdjustments(csvImportPath, true);
+		returnpage.importAdjustments(csvImportPath, 0, true);
 		returnpage.assertCellValue(title, value2);
 		returnpage.viewAdjustmentLog();
 		returnpage.assertAdjustmentLog(logs);
@@ -121,7 +121,7 @@ public class ECRImportExport extends FeedTest {
 				+ " ";
 		homepage = returnpage.closeReturnPage();
 		returnpage = (ReturnPage) homepage.importAdjustments(excelImportPath2,
-				true, true);
+				true, 0, true);
 		returnpage.assertCellValue(title, value3);
 		returnpage.viewAdjustmentLog();
 		returnpage.assertAdjustmentLog(logs);

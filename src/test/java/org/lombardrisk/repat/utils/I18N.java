@@ -23,6 +23,13 @@ public class I18N {
 	private static final String DATE_PATTERN_EN = "dd/MM/yyyy";
 	private static final String DATE_PATTERN_ZH_CN = "yyyy-MM-dd";
 
+	public static final String EN_US = "en_US";
+	public static final String EN = "en";
+	public static final String ZH_CN = "zh_CN";
+
+	private static final String ENCODING_UTF_8 = "UTF-8";
+	private static final String ENCODING_ISO_8859_1 = "ISO-8859-1";
+
 	/**
 	 * @param lang
 	 */
@@ -51,7 +58,8 @@ public class I18N {
 			while (en.hasMoreElements()) {
 				String key = (String) en.nextElement();
 				String value = props.getProperty(key);
-				value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
+				value = new String(value.getBytes(ENCODING_ISO_8859_1),
+						ENCODING_UTF_8);
 				ret.put(key, value);
 			}
 		} catch (Exception e) {
@@ -66,10 +74,10 @@ public class I18N {
 	 */
 	public String toDate(String date) {
 		switch (lang) {
-		case "zh_CN":
+		case ZH_CN:
 			return Business
 					.toDate(date, DATE_PATTERN_EN_US, DATE_PATTERN_ZH_CN);
-		case "en":
+		case EN:
 			return Business.toDate(date, DATE_PATTERN_EN_US, DATE_PATTERN_EN);
 		}
 		return date;
@@ -84,10 +92,5 @@ public class I18N {
 			return map.get(string);
 		else
 			return string;
-	}
-
-	public static void main(String args[]) {
-		I18N i18n = new I18N("zh_CN");
-		System.out.println(i18n.toString("Logout"));
 	}
 }

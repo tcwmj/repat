@@ -460,21 +460,32 @@ public class HomePage extends Page {
 	}
 
 	/**
-	 * @param filepath
-	 * @param openReturn
-	 * @param importCancel
+	 * importAdjustments
+	 * 
+	 * @param filepath : should be absolute path, as : D:/a.xls
+	 * @param openReturn <br/>
+	 *            true : tick "Open return after importing" <br/>
+	 *            false : untick "Open return after importing" <br/>
+	 * @param importMode <br/>
+	 *            0 : select "Replace existing return(if any)" <br/>
+	 *            1 : select "Add to existing value (Numeric cells only)" <br/>
+	 * @param importCancel <br/>
+	 *            true : will click import button <br/>
+	 *            false : will click cancel button <br/>
 	 * @return
 	 */
 	public Page importAdjustments(String filepath, Boolean openReturn,
-			Boolean importCancel) {
+			Integer importMode, Boolean importCancel) {
 		filepath = filepath.replaceAll("/", "\\\\");
 		filepath = (new File(filepath)).getAbsolutePath();
 		logger.info("Try to import Adjustments, file path : " + filepath);
-		driver.click(By.id("formHeader:adjust"));
-		driver.click(By.xpath("//div[@id='formHeader:adjust_menu']/ul/li[1]/a"));
-		driver.waitElementInVisiable(By.id("importFilesDialog"));
+		driver.click(By.xpath("//button[contains(@id,'importFile')]"));
+		driver.waitElementInVisiable(By.id("listImportFilesDialog"));
+		if (importMode == 1) {
+			driver.click(By.xpath("//table[@id='listImportFileForm:importMode']//td[3]//span"));
+		}
 		driver.click(By
-				.xpath("//div[@id='importFileForm:importFileUpload']/div[1]/label"));
+				.xpath("//div[@id='listImportFileForm:importFileUpload']/div[1]/span"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
@@ -504,12 +515,16 @@ public class HomePage extends Page {
 			e.printStackTrace();
 		}
 		waitStatusDialog();
-
+		
+		if (!openReturn) {
+			driver.click(By
+					.xpath("//form[@id='listImportFileForm']//table[2]//div[contains(@id,'listImportFileForm')]//span"));
+		}
 		if (importCancel) {
-			driver.click(By.id("importFileForm:importBtn"));
+			driver.click(By.id("listImportFileForm:listimportBtn"));
 			waitStatusDialog();
 		} else {
-			driver.click(By.id("importFileForm:cancelBtn"));
+			driver.click(By.id("listImportFileForm:listcancelBtn"));
 		}
 
 		if (openReturn && importCancel)
@@ -519,19 +534,21 @@ public class HomePage extends Page {
 	}
 
 	/**
-	 * @param region
+	 * @param location
 	 * @param language
 	 */
 	public void setPreferences(String location, String language) {
 		logger.info("Try to set preferences on home page");
 		driver.click(formHeader);
 		driver.click(preferences);
-		if (driver.isElementDisplayed(timezoneCheckBox))
+		if (location != null) {
 			driver.click(timezoneCheckBox);
-		driver.selectByVisibleText(timezoneList, location);
-		if (driver.isElementDisplayed(languageCheckBox))
+			driver.selectByVisibleText(timezoneList, location);
+		}
+		if (language != null) {
 			driver.click(languageCheckBox);
-		driver.selectByVisibleText(languageList, language);
+			driver.selectByVisibleText(languageList, language);
+		}
 		driver.click(savePreferenceBtn);
 	}
 

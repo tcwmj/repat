@@ -351,8 +351,17 @@ public class ReturnPage extends Page {
 	public Boolean isCurrentPage() {
 		return driver.isElementDisplayed(closeReturn);
 	}
-
-	public void importAdjustments(String filepath, Boolean importCancel) {
+	/**
+	 * importAdjustments
+	 * @param filepath : absolute file path, such as : d:/a.xls
+	 * @param importMode <br/>
+	 * 						0 : default value, select  "Replace existing return(if any)" <br/>
+	 * 						1 : select "Add to existing value (Numeric cells only)"
+	 * @param importCancel <br/>
+	 * 						true : will click import button <br/>
+	 * 						false : will click cancel button <br/>
+	 */
+	public void importAdjustments(String filepath, Integer importMode, Boolean importCancel) {
 		filepath = filepath.replaceAll("/", "\\\\");
 		filepath = (new File(filepath)).getAbsolutePath();
 		logger.info("Try to import Adjustments, file path : " + filepath);
@@ -360,7 +369,7 @@ public class ReturnPage extends Page {
 		driver.click(By.xpath("//div[@id='formHeader:adjust_menu']/ul/li[1]/a"));
 		driver.waitElementInVisiable(By.id("importFilesDialog"));
 		driver.click(By
-				.xpath("//div[@id='importFileForm:importFileUpload']/div[1]/label"));
+				.xpath("//div[@id='importFileForm:importFileUpload']/div[1]/span"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
@@ -390,7 +399,9 @@ public class ReturnPage extends Page {
 			e.printStackTrace();
 		}
 		waitStatusDialog();
-
+		if(importMode == 1){
+			driver.click(By.xpath("//table[@id='importFileForm:importMode']//td[3]//span"));
+		}
 		if (importCancel) {
 			driver.click(By.id("importFileForm:importBtn"));
 			waitStatusDialog();

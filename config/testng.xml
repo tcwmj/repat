@@ -9,29 +9,30 @@
 		<parameter name="browser" value="chrome" />
 		<!-- <parameter name="browser_version" value="35" /> -->
 		<!-- <parameter name="resolution" value="1024x768" /> -->
-		<!-- <packages> <package name="org.lombardrisk.repat.tests" /> </packages> -->
-		<classes>
-			<class name="org.lombardrisk.repat.tests.MethodDemo">
-				<methods>
-					<!-- <include name="LiveValidationTest" /> -->
-					<!-- <include name="InstanceTest" /> -->
-					<include name="ValidationCheckTest" />
-					<!-- <include name="ProblemsCheckTest" /> -->
-					<!-- <include name="AllocationsCheckTest" /> -->
-				</methods>
-			</class>
-		</classes>
+		<packages>
+			<package name="org.lombardrisk.repat.tests" />
+		</packages>
 	</test>
 
-	<!-- <test name="firefox on OS X"> <parameter name="os" value="OS X" /> 
-		<parameter name="os_version" value="Mountain Lion" /> <parameter name="browser" 
-		value="firefox" /> <parameter name="browser_version" value="30" /> <parameter 
-		name="resolution" value="1024x768" /> <packages> <package name="org.lombardrisk.repat.tests" 
-		/> </packages> </test> -->
+	<test name="firefox on OS X">
+		<parameter name="os" value="OS X" />
+		<parameter name="os_version" value="Mountain Lion" />
+		<parameter name="browser" value="firefox" />
+		<!-- <parameter name="browser_version" value="30" /> -->
+		<!-- <parameter name="resolution" value="1024x768" /> -->
+		<packages>
+			<package name="org.lombardrisk.repat.tests" />
+		</packages>
+	</test>
 
-	<!-- <test name="ie on WINDOWS"> <parameter name="os" value="WINDOWS" /> 
-		<parameter name="os_version" value="7" /> <parameter name="browser" value="ie" 
-		/> <parameter name="browser_version" value="11" /> <parameter name="resolution" 
-		value="1024x768" /> <packages> <package name="org.lombardrisk.repat.tests" 
-		/> </packages> </test> -->
+	<test name="ie on WINDOWS">
+		<parameter name="os" value="WINDOWS" />
+		<parameter name="os_version" value="7" />
+		<parameter name="browser" value="ie" />
+		<!-- <parameter name="browser_version" value="11" /> -->
+		<!-- <parameter name="resolution" value="1024x768" /> -->
+		<packages>
+			<package name="org.lombardrisk.repat.tests" />
+		</packages>
+	</test>
 </suite> <!-- Suite -->
